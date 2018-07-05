@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateConsigneesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('consignees', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 100);
             $table->string('last_name', 100);
-            $table->tinyInteger('role');
-            $table->string('email')->unique();
-            $table->string('phone', 35)->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('phone', 32);
+            $table->integer('office_id')->unsigned()->nullable();;
             $table->timestamps();
+            
+            $table->foreign('office_id')
+                    ->references('id')->on('offices')
+                    ->onDelete('cascade');
         });
     }
 
@@ -34,6 +35,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('consignees');
     }
 }
