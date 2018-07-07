@@ -20,6 +20,7 @@ class CreateRegionsTable extends Migration
             $table->tinyInteger('map_place');
             $table->timestamps();
         });
+        DB::unprepared(file_get_contents(__DIR__.'\db\regions.sql'));
     }
 
     /**

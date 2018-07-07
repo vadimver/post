@@ -24,6 +24,8 @@ class CreateCitiesTable extends Migration
                     ->references('id')->on('regions')
                     ->onDelete('restrict');
         });
+        
+        DB::unprepared(file_get_contents(__DIR__.'\db\cities.sql'));
     }
 
     /**
