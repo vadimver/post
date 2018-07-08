@@ -18,7 +18,7 @@ class CreateOfficesTable extends Migration
             $table->increments('id');
             $table->integer('region_id')->unsigned()->nullable();
             $table->integer('city_id')->unsigned()->nullable();
-            $table->integer('number');
+            $table->integer('number')->unsigned()->nullable()->index();
             $table->timestamps();
             
             $table->foreign('region_id')
