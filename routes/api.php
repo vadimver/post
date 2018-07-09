@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'UserController@login');
+Route::post('login', 'UserController@login')->name('login');
 Route::post('register', 'UserController@register');
  
 Route::middleware('auth:api')->group(function () {

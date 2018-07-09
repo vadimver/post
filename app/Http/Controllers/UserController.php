@@ -61,8 +61,8 @@ class UserController extends Controller
     
     public function show($id)
     {   
-        $auth_user = auth()->user();
-        $role = $auth_user['role'];
+        
+        $role = auth()->user()->role;
         
         if ($role == 1) {
             $user = auth()->user()->find($id);
@@ -88,17 +88,19 @@ class UserController extends Controller
     }
  
     public function update(Request $request, $id)
-    {
-        $product = auth()->user()->products()->find($id);
+    {   
+        
+        $user = auth()->user()->find($id);
  
-        if (!$product) {
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Product with id ' . $id . ' not found'
+                'message' => 'User with id ' . $id . ' not found'
             ], 400);
         }
  
-        $updated = $product->fill($request->all())->save();
+        $updated = User::findOrFail($id);
+        $updated->update($request->all()); 
  
         if ($updated)
             return response()->json([
@@ -107,8 +109,9 @@ class UserController extends Controller
         else
             return response()->json([
                 'success' => false,
-                'message' => 'Product could not be updated'
+                'message' => 'User could not be updated'
             ], 500);
+       
     }
  
     public function destroy($id)
