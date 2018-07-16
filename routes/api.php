@@ -20,4 +20,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('user_info', 'UserController@details');
  
     Route::resource('users', 'UserController');
+    
+    Route::put('packages/status_update/{id}', 'PackageController@status_update');
 });

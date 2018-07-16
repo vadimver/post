@@ -116,23 +116,23 @@ class UserController extends Controller
  
     public function destroy($id)
     {
-        $product = auth()->user()->products()->find($id);
+        $user = auth()->user()->find($id);
  
-        if (!$product) {
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Product with id ' . $id . ' not found'
+                'message' => 'User with id ' . $id . ' not found'
             ], 400);
         }
  
-        if ($product->delete()) {
+        if ($user->delete()) {
             return response()->json([
                 'success' => true
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Product could not be deleted'
+                'message' => 'User could not be deleted'
             ], 500);
         }
     }
