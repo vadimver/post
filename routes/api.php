@@ -22,4 +22,5 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('users', 'UserController');
     
     Route::put('packages/status_update/{id}', 'PackageController@status_update');
+    Route::get('packages/show/{id}', 'PackageController@show');
 });
