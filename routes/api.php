@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'UserController@login')->name('login');
 Route::post('register', 'UserController@register');
+
+Route::post('packages/show_tracking', 'PackageController@show_tracking');
  
 Route::middleware('auth:api')->group(function () {
     Route::get('user_info', 'UserController@details');
@@ -24,3 +26,4 @@ Route::middleware('auth:api')->group(function () {
     Route::put('packages/status_update/{id}', 'PackageController@status_update');
     Route::get('packages/show/{id}', 'PackageController@show');
 });
+

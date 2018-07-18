@@ -92,4 +92,45 @@ class PackageController extends Controller
         }
 
     }
+    
+    public function show_tracking(Request $request)
+    {   
+        $get_package = Package::where('tracking', $request->tracking )->pluck('id');
+        $id = $get_package[0];
+                
+        $package = Package::find($id);
+        $consignee = Package::find($id)->consign;
+        $user = Package::find($id)->user;
+        
+        $start_office = Package::find($id)->start_office;
+        $finish_office = Package::find($id)->finish_office;
+        
+        $start_region = Region::where('id', $start_office->region_id)->get();
+        $start_city = City::where('id', $start_office->city_id)->get();
+        
+        $finish_region = Region::where('id', $finish_office->region_id)->get();
+        $finish_city = City::where('id', $finish_office->city_id)->get();
+        
+        if (!$package) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Package with id ' . $id . ' not found'
+            ], 400);
+        }
+        
+        return response()->json([
+                'success' => true,
+                'package' => $package->toArray(),
+                'users' => $user->toArray(),
+                'start_office' => $start_office->toArray(), 
+                'finish_office' => $finish_office->toArray(),
+                'start_region' => $start_region->toArray(),
+                'start_city' => $start_city->toArray(),
+                'finish_region' => $finish_region->toArray(),
+                'finish_city' => $finish_city->toArray(),
+                'consignees' => $consignee->toArray()
+        ], 400);
+        
+        
+    }
 }
