@@ -27,6 +27,7 @@ Route::middleware('auth:api')->group(function () {
     
     Route::put('packages/status_update/{id}', 'PackageController@status_update');
     Route::get('packages/show/{id}', 'PackageController@show');
+    Route::post('packages/create', 'PackageController@create');
     
     Route::delete('offices/delete/{id}', 'OfficeController@delete');
     Route::post('offices/create', 'OfficeController@create');

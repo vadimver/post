@@ -16,7 +16,7 @@ class ConsigneesTableSeeder extends Seeder
             'id' => 1,
             'name' => 'test',
             'last_name' => 'test',
-            'phone' => '+80631111111'
+            'phone' => '80631111111'
         ]);
     }
 }

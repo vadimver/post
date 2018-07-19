@@ -10,7 +10,67 @@ use App\Region;
 use App\City;
 
 class PackageController extends Controller
-{
+{   
+    
+    public function create(Request $request)
+    {   
+        $role = auth()->user()->role;
+        
+        if ($role) {
+            
+            $request->validate([
+                'name' => 'min:3|regex:/^[a-zA-Z\-\s]+$/',
+                'last_name' => 'min:2|regex:/^[a-zA-Z\-\s]+$/',
+                'phone' => 'required|numeric',
+            ]);
+            
+            $consignee = new Consignee;
+
+            $consignee->name = $request->name;
+            $consignee->last_name = $request->last_name;
+            $consignee->phone = $request->phone;
+            $consignee->office_id = $request->finish_office;
+
+            $consignee->save();
+
+            $start_map = $request->start_map;
+            $finish_map = $request->finish_map;
+            $result_map = abs($start_map - $finish_map);
+            
+            if ($result_map == 2) {
+                  $delivery = 3;
+            } elseif ($result_map == 1) {
+                  $delivery = 2;
+            } else {
+                  $delivery = 1;
+            }
+            
+            $consign_id = Consignee::latest()->first();
+            
+            $package = new Package;
+            
+            $package->user_id = $request->user_id;
+            $package->consign_id = $consign_id->id;
+            $package->start_office_id = $request->start_office;      
+            $package->finish_office_id = $request->finish_office;      
+            $package->delivery = $delivery;
+            $package->tracking = time();
+            $package->status = 1;
+            
+            $package->save();
+            
+            return response()->json([
+                'success' => true
+            ], 400);
+                   
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'You don\'t have permission to perform this action.'
+            ], 400);
+        }
+    }
+    
     public function status_update(Request $request, $id)
     {   
         
