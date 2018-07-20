@@ -27,7 +27,7 @@ class OfficeController extends Controller
         return response()->json([
             'success' => true,
             'office' => $office,
-        ], 400);
+        ], 200);
     }
     
     public function delete($id)

@@ -77,7 +77,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $user->toArray()
-            ], 400);
+            ], 200);
         
         } else {
             return response()->json([
@@ -89,51 +89,59 @@ class UserController extends Controller
  
     public function update(Request $request, $id)
     {   
+        $role = auth()->user()->role;
         
-        $user = auth()->user()->find($id);
- 
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'User with id ' . $id . ' not found'
-            ], 400);
+        if ($role == 2 || $role == 1) {
+            $user = auth()->user()->find($id);
+
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User with id ' . $id . ' not found'
+                ], 400);
+            }
+
+            $updated = User::findOrFail($id);
+            $updated->update($request->all()); 
+
+            if ($updated)
+                return response()->json([
+                    'success' => true
+                ]);
+            else
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User could not be updated'
+                ], 500);
         }
- 
-        $updated = User::findOrFail($id);
-        $updated->update($request->all()); 
- 
-        if ($updated)
-            return response()->json([
-                'success' => true
-            ]);
-        else
-            return response()->json([
-                'success' => false,
-                'message' => 'User could not be updated'
-            ], 500);
        
     }
  
     public function destroy($id)
-    {
-        $user = auth()->user()->find($id);
- 
-        if (!$user) {
-            return response()->json([
-                'success' => false,
-                'message' => 'User with id ' . $id . ' not found'
-            ], 400);
-        }
- 
-        if ($user->delete()) {
-            return response()->json([
-                'success' => true
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'User could not be deleted'
-            ], 500);
+    {   
+        
+        $role = auth()->user()->role;
+        
+        if ($role == 1) {
+            $user = auth()->user()->find($id);
+
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User with id ' . $id . ' not found'
+                ], 400);
+            }
+
+            if ($user->delete()) {
+                return response()->json([
+                    'success' => true
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User could not be deleted'
+                ], 500);
+            }
         }
     }
  

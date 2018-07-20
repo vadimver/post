@@ -61,7 +61,7 @@ class PackageController extends Controller
             
             return response()->json([
                 'success' => true
-            ], 400);
+            ], 201);
                    
         } else {
             return response()->json([
@@ -142,7 +142,7 @@ class PackageController extends Controller
                 'finish_region' => $finish_region->toArray(),
                 'finish_city' => $finish_city->toArray(),
                 'consignees' => $consignee->toArray()
-            ], 400);
+            ], 200);
         
         } else {
             return response()->json([
@@ -189,7 +189,7 @@ class PackageController extends Controller
                 'finish_region' => $finish_region->toArray(),
                 'finish_city' => $finish_city->toArray(),
                 'consignees' => $consignee->toArray()
-        ], 400);
+        ], 200);
         
         
     }
