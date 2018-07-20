@@ -18,10 +18,10 @@ Simulator of sending mail between Ukrainian cities
 ##  Available options
 
 Not registered users:
- (POST) - api/register                      // register
- (POST) - api/login                         // login
- (POST) - api/packages/show_tracking        // package show by tracking
- (GET)  - api/offices/show/{id}             // show office info
+1. (POST) - api/register                      // register
+2. (POST) - api/login                         // login
+3. (POST) - api/packages/show_tracking        // package show by tracking
+4. (GET)  - api/offices/show/{id}             // show office info
 
 Users (status 3):
  (GET)  - api/user_info                     // personal information
