@@ -18,25 +18,25 @@ Simulator of sending mail between Ukrainian cities
 ##  Available options
 
 Not registered users:
-1. (POST) - api/register                      // register
-2. (POST) - api/login                         // login
-3. (POST) - api/packages/show_tracking        // package show by tracking
-4. (GET)  - api/offices/show/{id}             // show office info
+* (POST) - api/register                      // register
+* (POST) - api/login                         // login
+* (POST) - api/packages/show_tracking        // package show by tracking
+* (GET)  - api/offices/show/{id}             // show office info
 
 Users (status 3):
- (GET)  - api/user_info                     // personal information
- (GET)  - api/packages/show/{id}            // package show
- (POST) - api/packages/create               // package create
+* (GET)  - api/user_info                     // personal information
+* (GET)  - api/packages/show/{id}            // package show
+* (POST) - api/packages/create               // package create
 
 +Managers (status 2):
- (PUT)  - api/update/{id}                   // update user status
- (PUT)  - api/packages/status_update/{id}   // update package status
+* (PUT)  - api/update/{id}                   // update user status
+* (PUT)  - api/packages/status_update/{id}   // update package status
 
 +Admin (status 1):
- (GET)  - api/users/{id}                    // user information
- (DEL)  - api/users/{id}                    // user delete
- (DEL)  - api/offices/delete/{id}           // office delete
- (POST) - api/offices/create                // office create
+* (GET)  - api/users/{id}                    // user information
+* (DEL)  - api/users/{id}                    // user delete
+* (DEL)  - api/offices/delete/{id}           // office delete
+* (POST) - api/offices/create                // office create
 
 ## Built With
 
